@@ -9,6 +9,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,7 +26,9 @@ import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,10 +48,21 @@ import androidx.compose.ui.unit.dp
 import com.example.customcolor.Help
 
 @Composable
-fun ExpandableContent() {
-    var expanded by remember { mutableStateOf(false) }
+fun ExpandableContent(
+    defaultExpansion:Boolean = false,
+    expandedTitle:String = "Terms & Conditions",
+    collapsedTitle:String = "Terms & Conditions",
+    body: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+        "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
+        "ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
+        "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
+        "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
+        "culpa qui officia deserunt mollit anim id est laborum."
+) {
+    var expanded by remember { mutableStateOf(defaultExpansion) }
     val extraPadding by animateDpAsState(
-        if (expanded) 48.dp else 0.dp,
+        if (expanded) 12.dp else 0.dp,
         animationSpec = spring(
             dampingRatio = Spring.DampingRatioMediumBouncy,
             stiffness = Spring.StiffnessLow
@@ -58,24 +72,20 @@ fun ExpandableContent() {
         color = MaterialTheme.colors.surface,
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
-        Column(modifier = Modifier.padding(24.dp)) {
-            Text(text = "Terms & Conditions")
+        Column(modifier = Modifier.padding(24.dp).clickable { expanded = !expanded },) {
+            Row (verticalAlignment = Alignment.CenterVertically){
+                Icon(
+                    modifier = Modifier.padding(end = 8.dp),
+                    imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.AddCircle,
+                    contentDescription = null,
+                    tint = MaterialTheme.colors.primary
+                )
+
+                Text(text = if (expanded) expandedTitle else collapsedTitle)
+            }
             Spacer(modifier = Modifier.height(extraPadding))
             if (expanded) {
-                Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                            "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                            "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
-                            "ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
-                            "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                            "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-                            "culpa qui officia deserunt mollit anim id est laborum."
-                )
-            }
-            OutlinedButton(
-                onClick = { expanded = !expanded }
-            ) {
-                Text(if (expanded) "Show less" else "Show more")
+                Text(text = body)
             }
         }
     }
