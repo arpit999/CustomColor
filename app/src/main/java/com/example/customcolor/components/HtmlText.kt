@@ -1,10 +1,4 @@
-@file:Suppress(
-    "PackageName",
-    "kotlin:S107", // too many parameters
-    "kotlin:S100", // methods should start with a lowercase letter
-)
-
-package ca.manulife.MobileBanking.ui.components
+package com.example.customcolor.components
 
 import android.graphics.Typeface
 import android.text.Spanned
@@ -20,6 +14,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -33,9 +28,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.text.HtmlCompat
 import androidx.core.text.getSpans
-import ca.manulife.MobileBanking.R
-import ca.manulife.MobileBanking.helpers.CustomViewUtils
-import ca.manulife.MobileBanking.ui.theme.ManulifeBankTheme
+import com.example.customcolor.ui.theme.ManulifeBankTheme
 
 
 /** A consistent style for phone numbers and URLs in Text() blocks. */
@@ -97,13 +90,9 @@ fun DisplayHTMLText(@StringRes id: Int): AnnotatedString {
     return HtmlCompat.fromHtml(stringResource(id), HtmlCompat.FROM_HTML_MODE_COMPACT).toAnnotatedString()
 }
 
-/**
- * Detects links in an html string and adds clickable regions for each one.
- */
 @Composable
-fun htmlStringResource(@StringRes id: Int, vararg formatArgs: Any): AnnotatedString {
-    val string = stringResource(id = id, formatArgs = formatArgs)
-    return CustomViewUtils.getSpannedText(string).toAnnotatedString()
+fun DisplayHTMLText( htmlString: String): AnnotatedString {
+    return HtmlCompat.fromHtml(htmlString, HtmlCompat.FROM_HTML_MODE_COMPACT).toAnnotatedString()
 }
 
 @Preview(showBackground = true)
@@ -125,7 +114,6 @@ fun HtmlTextPreview() {
         Column {
             Text(HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT).toAnnotatedString())
 
-            Text(DisplayHTMLText(R.string.ready_for_pin_reset_note))
         }
     }
 }
