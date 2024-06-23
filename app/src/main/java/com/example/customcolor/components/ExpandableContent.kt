@@ -22,8 +22,6 @@ import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
@@ -49,16 +47,10 @@ import com.example.customcolor.Help
 
 @Composable
 fun ExpandableContent(
-    defaultExpansion:Boolean = false,
-    expandedTitle:String = "Terms & Conditions",
-    collapsedTitle:String = "Terms & Conditions",
-    body: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-        "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
-        "ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
-        "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-        "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-        "culpa qui officia deserunt mollit anim id est laborum."
+    modifier: Modifier = Modifier,
+    defaultExpansion: Boolean = false,
+    titleContent: @Composable (Boolean) -> Unit = {},
+    onExpand: @Composable () -> Unit = {},
 ) {
     var expanded by remember { mutableStateOf(defaultExpansion) }
     val extraPadding by animateDpAsState(
@@ -68,27 +60,16 @@ fun ExpandableContent(
             stiffness = Spring.StiffnessLow
         ), label = "ExpandableContentAnimation"
     )
-    Surface(
-        color = MaterialTheme.colors.surface,
-        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
-    ) {
-        Column(modifier = Modifier.padding(24.dp).clickable { expanded = !expanded },) {
-            Row (verticalAlignment = Alignment.CenterVertically){
-                Icon(
-                    modifier = Modifier.padding(end = 8.dp),
-                    imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.AddCircle,
-                    contentDescription = null,
-                    tint = MaterialTheme.colors.primary
-                )
-
-                Text(text = if (expanded) expandedTitle else collapsedTitle)
-            }
-            Spacer(modifier = Modifier.height(extraPadding))
-            if (expanded) {
-                Text(text = body)
-            }
+    Column(modifier = modifier.clickable { expanded = !expanded }) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            titleContent(expanded)
+        }
+        Spacer(modifier = Modifier.height(extraPadding))
+        if (expanded) {
+            onExpand()
         }
     }
+
 }
 
 
@@ -190,13 +171,19 @@ fun ExpandableCard(
 @Composable
 private fun PreviewExpandableCard() {
     var item by remember {
-        mutableStateOf( Help(question = "aliquam", answer = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
-                "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
-                "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
-                "ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
-                "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-                "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
-                "culpa qui officia deserunt mollit anim id est laborum.", isExpandable = false))
+        mutableStateOf(
+            Help(
+                question = "aliquam",
+                answer = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+                        "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+                        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
+                        "ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
+                        "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
+                        "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
+                        "culpa qui officia deserunt mollit anim id est laborum.",
+                isExpandable = false
+            )
+        )
     }
 
     ExpandableCard(item,
@@ -209,5 +196,30 @@ private fun PreviewExpandableCard() {
 @Preview
 @Composable
 private fun PreviewExpandable() {
-    ExpandableContent()
+    ExpandableContent(
+        modifier = Modifier.padding(24.dp),
+        defaultExpansion = true,
+        titleContent = { expanded ->
+            val expandedTitle = "Show Less"
+            val collapsedTitle = "Show More"
+            Icon(
+                modifier = Modifier.padding(end = 8.dp),
+                imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.AddCircle,
+                contentDescription = null,
+                tint = MaterialTheme.colors.primary
+            )
+
+            Text(text = if (expanded) expandedTitle else collapsedTitle)
+        },
+        onExpand = {
+            val body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+                    "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+                    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi " +
+                    "ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
+                    "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
+                    "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
+                    "culpa qui officia deserunt mollit anim id est laborum."
+            Text(text = body)
+        }
+    )
 }
