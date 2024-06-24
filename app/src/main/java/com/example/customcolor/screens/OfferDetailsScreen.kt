@@ -39,7 +39,7 @@ import com.example.customcolor.screens.model.offerList
 import com.example.customcolor.ui.theme.AppTheme
 
 @Composable
-fun OfferDetailsScreen(offer: Offer) {
+fun OfferDetailsScreen(offer: Offer, navigateToHome: () -> Unit) {
     Surface {
         Column(
             Modifier
@@ -59,7 +59,7 @@ fun OfferDetailsScreen(offer: Offer) {
                     .align(Alignment.TopEnd)
                     .clip(CircleShape)
                     .background(MaterialTheme.colors.surface),
-                    onClick = { /*TODO*/ }) {
+                    onClick = { navigateToHome() }) {
                     Icon(imageVector = Icons.Filled.Close, contentDescription = null)
                 }
             }
@@ -166,6 +166,6 @@ fun OfferDetailsScreen(offer: Offer) {
 @Composable
 private fun PreviewOfferDetails() {
     AppTheme {
-        OfferDetailsScreen(offerList.first())
+        OfferDetailsScreen(offerList.first(),{})
     }
 }

@@ -16,9 +16,10 @@ import com.example.customcolor.screens.model.offerList
 
 sealed class Screen(val route: String, @StringRes val resourceId: Int) {
     data object Home : Screen("Home", R.string.Home)
-    object OfferDetails : Screen("OfferDetails/{${Args.id}}", R.string.offer_details){
+    object OfferDetails : Screen("OfferDetails/{${Args.id}}", R.string.offer_details) {
         fun createRoute(id: Int) = "OfferDetails/$id"
     }
+
     object Args {
         const val id = "id"
     }
@@ -39,8 +40,9 @@ fun NavigationApp(innerPadding: PaddingValues) {
             route = Screen.OfferDetails.route,
             arguments = listOf(navArgument(Screen.Args.id) { type = NavType.IntType })
         ) { backStackEntry ->
-            val offer = offerList.first { it.id == backStackEntry.arguments?.getInt(Screen.Args.id) }
-            OfferDetailsScreen(offer)
+            val offer =
+                offerList.first { it.id == backStackEntry.arguments?.getInt(Screen.Args.id) }
+            OfferDetailsScreen(offer, navigateToHome = { navController.popBackStack() })
         }
     }
 }

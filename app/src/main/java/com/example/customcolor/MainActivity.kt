@@ -27,12 +27,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AppTheme {
-        OfferDetailsScreen(offerList.first())
-    }
-}
