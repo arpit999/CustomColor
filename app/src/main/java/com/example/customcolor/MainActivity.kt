@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -57,7 +58,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun OfferDetails(modifier: Modifier = Modifier) {
-    Column(Modifier.verticalScroll(rememberScrollState())) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
         Box {
             AsyncImage(
                 modifier = Modifier.fillMaxWidth(),
@@ -131,53 +136,45 @@ fun OfferDetails(modifier: Modifier = Modifier) {
                 },
                 onExpand = {
                     val body = """
-                        <h4>Terms and Conditions</h4>
-                        <br>
-                        <p>Last updated: 2023-11-16</p>
-                        <br>
-                        <h5>1. Acceptance of Terms</h5>
-                        <br>
-                        <p>By accessing and using this website, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you must not use this website.</p>
-                        <br><h5>2. Use of the Website</h5>
-                        <br>
-                        <p>You may use this website for personal, non-commercial purposes only. You must not use this website in any way that causes, or may cause, damage to the website or impairment of the availability or accessibility of the website.</p>
-                        <br>
-                        <h5>3. Intellectual Property</h5>
-                        <br>
-                        <p>All content on this website, including text, graphics, logos, and images, is the property of the website owner and is protected by copyright laws. You may not reproduce, distribute, or modify any content without prior written permission.</p>
-                        <br>
-                        <h5>4. Disclaimer of Warranties</h5>
-                        <br>
-                        <p>This website is provided "as is" without any warranties, express or implied. The website owner makes no representations or warranties of any kind, including but not limited to the accuracy, completeness, or reliability of the content.</p>
-                        <br>
-                        <h5>5. Limitation of Liability</h5>
-                        <br>
-                        <p>The website owner shall not be liable for any damages, including direct, indirect, incidental, or consequential damages, arising out of or in connection with the use of this website.</p>
-                        <br>
-                        <h5>6. Governing Law</h5>
-                        <br>
-                        <p>These Terms and Conditions shall be governed by and construed in accordance with the laws of [Your Jurisdiction].</p>
-                        <br>
-                        <h5>7. Changes to Terms</h5>
-                        <br>
-                        <p>The website owner reserves the right to modify these Terms and Conditions at any time. Any changes will be effective immediately upon posting on this website.</p>
-                        <br>
-                        <p>If you have any questions about these Terms and Conditions, please contact us at [Your Contact Information].</p>
-                    """
+                <h4>Terms and Conditions</h4>
+                <br>
+                <p>Last updated: 2023-11-16</p>
+                <br>
+                <h5>1. Acceptance of Terms</h5>
+                <br>
+                <p>By accessing and using this website, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you must not use this website.</p>
+                <br><h5>2. Use of the Website</h5>
+                <br>
+                <p>You may use this website for personal, non-commercial purposes only. You must not use this website in any way that causes, or may cause, damage to the website or impairment of the availability or accessibility of the website.</p>
+                <br>
+                <h5>3. Intellectual Property</h5>
+                <br>
+                <p>All content on this website, including text, graphics, logos, and images, is the property of the website owner and is protected by copyright laws. You may not reproduce, distribute, or modify any content without prior written permission.</p>
+                <br>
+                <h5>4. Disclaimer of Warranties</h5>
+                <br>
+                <p>This website is provided "as is" without any warranties, express or implied. The website owner makes no representations or warranties of any kind, including but not limited to the accuracy, completeness, or reliability of the content.</p>
+                <br>
+                <h5>5. Limitation of Liability</h5>
+                <br>
+                <p>The website owner shall not be liable for any damages, including direct, indirect, incidental, or consequential damages, arising out of or in connection with the use of this website.</p>
+                <br>
+                <h5>6. Governing Law</h5>
+                <br>
+                <p>These Terms and Conditions shall be governed by and construed in accordance with the laws of [Your Jurisdiction].</p>
+                <br>
+                <h5>7. Changes to Terms</h5>
+                <br>
+                <p>The website owner reserves the right to modify these Terms and Conditions at any time. Any changes will be effective immediately upon posting on this website.</p>
+                <br>
+                <p>If you have any questions about these Terms and Conditions, please contact us at [Your Contact Information].</p>
+            """
                     Text(text = DisplayHTMLText(body), style = MaterialTheme.typography.caption)
                 }
             )
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            Button(modifier = Modifier.fillMaxWidth(),onClick = { /*TODO*/ }) {
-                Text(text = "ACCEPT NOW")
-            }
-
-            TextButton(modifier = Modifier.fillMaxWidth(),onClick = { /*TODO*/ }) {
-                Text(text = "DECLINE")
-            }
         }
+
+
     }
 }
 
