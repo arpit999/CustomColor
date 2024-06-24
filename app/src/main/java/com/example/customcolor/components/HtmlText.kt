@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.text.HtmlCompat
 import androidx.core.text.getSpans
-import com.example.customcolor.ui.theme.ManulifeBankTheme
+import com.example.customcolor.ui.theme.AppTheme
 
 
 /** A consistent style for phone numbers and URLs in Text() blocks. */
@@ -98,7 +98,7 @@ fun DisplayHTMLText( htmlString: String): AnnotatedString {
 @Preview(showBackground = true)
 @Composable
 fun HtmlTextPreview() {
-    ManulifeBankTheme {
+    AppTheme {
         val html = """
             <p> <a href=".">This</a> is a link</p>
             <ul>

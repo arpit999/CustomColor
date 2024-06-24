@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CustomColor</string>
+    <string name="Home">Home</string>
+    <string name="offer_details">Offer Detail</string>
 </resources>

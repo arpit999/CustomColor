@@ -24,7 +24,6 @@ import androidx.compose.material.OutlinedButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Shapes
 import androidx.compose.material.Snackbar
 import androidx.compose.material.SnackbarData
 import androidx.compose.material.SnackbarDuration
@@ -95,7 +94,7 @@ val LightColorPalette = lightColors(
 )
 
 @Composable
-fun ManulifeBankTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun AppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {
@@ -146,7 +145,7 @@ val Colors.m3SurfacesLiveChat
 @Preview(name = "Current (dark)", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ManulifeControls() {
-    ManulifeBankTheme {
+    AppTheme {
         Controls()
     }
 }
