@@ -29,7 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.customcolor.components.DisplayHTMLText
@@ -84,18 +84,18 @@ fun OfferDetailsScreen(offer: Offer, navigateToHome: () -> Unit) {
                 }
 
                 Text(
-                    text = "You're pre-approved for a higher limit on your card.",
+                    text = offer.title,
                     style = MaterialTheme.typography.h5
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
-                val htmlString =
-                    "<p>Congrats! You qualify for a credit limit increase of <strong>\$4,500</strong> on your \n" +
-                            "    <em>ManulifeMONEY+Visa* *****9876</em>.</p> <br>" +
-                            "<p>By clicking ‘Accept now’, you agree and consent to increasing your credit limit to \n" +
-                            "    <strong>\$15,000</strong>.</p>"
+//                val htmlString =
+//                    "<p>Congrats! You qualify for a credit limit increase of <strong>\$4,500</strong> on your \n" +
+//                            "    <em>ManulifeMONEY+Visa* *****9876</em>.</p> <br>" +
+//                            "<p>By clicking ‘Accept now’, you agree and consent to increasing your credit limit to \n" +
+//                            "    <strong>\$15,000</strong>.</p>"
                 Text(
-                    text = DisplayHTMLText(htmlString),
+                    text = DisplayHTMLText(offer.description),
                     style = MaterialTheme.typography.subtitle1
                 )
 
@@ -162,7 +162,7 @@ fun OfferDetailsScreen(offer: Offer, navigateToHome: () -> Unit) {
 }
 
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun PreviewOfferDetails() {
     AppTheme {

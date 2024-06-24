@@ -23,7 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.customcolor.screens.model.offerList
 import com.example.customcolor.ui.theme.AppTheme
@@ -76,7 +76,7 @@ fun HomeScreen(onCardClick: (Int) -> Unit) {
 }
 
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun PreviewHomeScreen() {
     AppTheme {
