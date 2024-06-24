@@ -61,7 +61,10 @@ fun ExpandableContent(
         ), label = "ExpandableContentAnimation"
     )
     Column(modifier = modifier.clickable { expanded = !expanded }) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.padding(end = 4.dp, top = 4.dp, bottom = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             titleContent(expanded)
         }
         Spacer(modifier = Modifier.height(extraPadding))

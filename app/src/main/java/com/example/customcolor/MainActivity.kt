@@ -17,11 +17,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Close
@@ -116,7 +119,9 @@ fun OfferDetails(modifier: Modifier = Modifier) {
                     val expandedTitle = "Show Less"
                     val collapsedTitle = "Show More"
                     Icon(
-                        modifier = Modifier.padding(end = 8.dp),
+                        modifier = Modifier
+                            .size(30.dp)
+                            .padding(end = 8.dp),
                         imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.AddCircle,
                         contentDescription = null,
                         tint = MaterialTheme.colors.primary
@@ -162,6 +167,16 @@ fun OfferDetails(modifier: Modifier = Modifier) {
                     Text(text = DisplayHTMLText(body), style = MaterialTheme.typography.caption)
                 }
             )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Button(modifier = Modifier.fillMaxWidth(),onClick = { /*TODO*/ }) {
+                Text(text = "ACCEPT NOW")
+            }
+
+            TextButton(modifier = Modifier.fillMaxWidth(),onClick = { /*TODO*/ }) {
+                Text(text = "DECLINE")
+            }
         }
     }
 }
