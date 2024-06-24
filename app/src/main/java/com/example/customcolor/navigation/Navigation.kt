@@ -39,7 +39,7 @@ fun NavigationApp(innerPadding: PaddingValues) {
             route = Screen.OfferDetails.route,
             arguments = listOf(navArgument(Screen.Args.id) { type = NavType.IntType })
         ) { backStackEntry ->
-            val offer = offerList[backStackEntry.arguments?.getInt(Screen.Args.id) ?: 0]
+            val offer = offerList.first { it.id == backStackEntry.arguments?.getInt(Screen.Args.id) }
             OfferDetailsScreen(offer)
         }
     }
