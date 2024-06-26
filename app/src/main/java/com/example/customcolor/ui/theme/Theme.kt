@@ -43,10 +43,13 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.lightColors
 import androidx.compose.material.primarySurface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -93,21 +96,63 @@ val LightColorPalette = lightColors(
     onError = White100
 )
 
+class CardColors(
+    val red: Color,
+    val green: Color,
+    val blue: Color
+)
+
+val LocalCardColors = staticCompositionLocalOf {
+    CardColors(
+        red = Color.Unspecified,
+        green = Color.Unspecified,
+        blue = Color.Unspecified
+    )
+}
+
+private val DarkCardColors = CardColors(
+    red = Color(0xFF009688),
+    green = Color(0xFFCDDC39),
+    blue = Color(0xFF673AB7)
+)
+
+private val LightCardColors = CardColors(
+    red = Color(0xFF4CAF50),
+    green = Color(0xFFFFEB3B),
+    blue = Color(0xFF9C27B0)
+)
+
 @Composable
-fun AppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun AppTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable() () -> Unit
+) {
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {
         LightColorPalette
     }
 
-    MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+    val cardColors = if (darkTheme) {
+        DarkCardColors
+    } else {
+        LightCardColors
+    }
+
+    CompositionLocalProvider(LocalCardColors provides cardColors) {
+        MaterialTheme(
+            colors = colors,
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+    }
 }
+
+val MaterialTheme.localCardColors
+    @Composable
+    @ReadOnlyComposable
+    get() = LocalCardColors.current
 
 /**
  * "Secondary" text color from the xml theme, because Material 2 doesn't support it.
@@ -220,7 +265,11 @@ fun Controls(buttonColors: ButtonColors = ButtonDefaults.buttonColors()) {
                 }
                 Row(modifier = Modifier.weight(1f)) {
                     Text("Disabled", modifier = Modifier.weight(1f))
-                    Switch(checked = switched, onCheckedChange = { switched = !switched }, enabled = false)
+                    Switch(
+                        checked = switched,
+                        onCheckedChange = { switched = !switched },
+                        enabled = false
+                    )
                 }
             }
             Row {
@@ -230,7 +279,11 @@ fun Controls(buttonColors: ButtonColors = ButtonDefaults.buttonColors()) {
                 }
                 Row(modifier = Modifier.weight(1f)) {
                     Text("Disabled", modifier = Modifier.weight(1f))
-                    Switch(checked = !switched, onCheckedChange = { switched = !switched }, enabled = false)
+                    Switch(
+                        checked = !switched,
+                        onCheckedChange = { switched = !switched },
+                        enabled = false
+                    )
                 }
             }
 
@@ -242,7 +295,11 @@ fun Controls(buttonColors: ButtonColors = ButtonDefaults.buttonColors()) {
                 }
                 Row(modifier = Modifier.weight(1f)) {
                     Text("Disabled", modifier = Modifier.weight(1f))
-                    Checkbox(checked = checked, onCheckedChange = { checked = !checked }, enabled = false)
+                    Checkbox(
+                        checked = checked,
+                        onCheckedChange = { checked = !checked },
+                        enabled = false
+                    )
                 }
             }
             Row {
@@ -252,7 +309,11 @@ fun Controls(buttonColors: ButtonColors = ButtonDefaults.buttonColors()) {
                 }
                 Row(modifier = Modifier.weight(1f)) {
                     Text("Disabled", modifier = Modifier.weight(1f))
-                    Checkbox(checked = !checked, onCheckedChange = { checked = !checked }, enabled = false)
+                    Checkbox(
+                        checked = !checked,
+                        onCheckedChange = { checked = !checked },
+                        enabled = false
+                    )
                 }
             }
 
@@ -264,7 +325,11 @@ fun Controls(buttonColors: ButtonColors = ButtonDefaults.buttonColors()) {
                 }
                 Row(modifier = Modifier.weight(1f)) {
                     Text("Disabled", modifier = Modifier.weight(1f))
-                    RadioButton(selected = selected, onClick = { selected = !selected }, enabled = false)
+                    RadioButton(
+                        selected = selected,
+                        onClick = { selected = !selected },
+                        enabled = false
+                    )
                 }
             }
             Row {
@@ -274,7 +339,11 @@ fun Controls(buttonColors: ButtonColors = ButtonDefaults.buttonColors()) {
                 }
                 Row(modifier = Modifier.weight(1f)) {
                     Text("Disabled", modifier = Modifier.weight(1f))
-                    RadioButton(selected = !selected, onClick = { selected = !selected }, enabled = false)
+                    RadioButton(
+                        selected = !selected,
+                        onClick = { selected = !selected },
+                        enabled = false
+                    )
                 }
             }
 
@@ -301,7 +370,7 @@ fun TopNavBar(
     actions: @Composable RowScope.() -> Unit = {}
 ) {
     TopAppBar(
-        title = { Text(text = AnnotatedString(title.toString()) )},
+        title = { Text(text = AnnotatedString(title.toString())) },
         contentColor = contentColor,
         backgroundColor = backgroundColor,
         navigationIcon = navigationIcon,

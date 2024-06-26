@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -25,31 +25,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.example.customcolor.components.getColorFor
 import com.example.customcolor.screens.model.offerList
 import com.example.customcolor.ui.theme.AppTheme
 
 @Composable
-fun HomeScreen(onCardClick: (Int) -> Unit) {
+fun HomeScreen(onCardClick: (index: Int, offerId: Int) -> Unit) {
     Column {
         LazyRow(
             contentPadding = PaddingValues(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
-            items(offerList) { offer ->
+            itemsIndexed(offerList) { index, offer ->
                 Card(
                     modifier = Modifier
-                        .clickable { onCardClick(offer.id) }
+                        .clickable { onCardClick(index, offer.id) }
                         .width(280.dp)
                         .height(180.dp)
                 ) {
                     Column(Modifier.padding(12.dp)) {
-
                         Row(
                             modifier = Modifier
                                 .padding(vertical = 8.dp)
                                 .clip(MaterialTheme.shapes.large)
-                                .background(MaterialTheme.colors.primaryVariant.copy(alpha = 0.3F))
+                                .background(getColorFor(index = index).copy(alpha = 0.3F))
                                 .padding(horizontal = 8.dp, vertical = 4.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -80,6 +80,14 @@ fun HomeScreen(onCardClick: (Int) -> Unit) {
 @Composable
 private fun PreviewHomeScreen() {
     AppTheme {
-        HomeScreen(){}
+        HomeScreen() { _, _ -> }
+    }
+}
+
+@PreviewLightDark
+@Composable
+private fun PreviewHomeScreenNoTheme() {
+    AppTheme {
+        HomeScreen() { _, _ -> }
     }
 }
