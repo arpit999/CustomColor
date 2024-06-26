@@ -14,11 +14,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Close
@@ -156,6 +158,18 @@ fun OfferDetailsScreen(offer: Offer, navigateToHome: () -> Unit) {
                     }
                 )
             }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Button(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),onClick = { /*TODO*/ }) {
+                Text(text = "Accept")
+            }
+
+            TextButton(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),onClick = { /*TODO*/ }) {
+                Text(text = "Decline")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
         }
     }
