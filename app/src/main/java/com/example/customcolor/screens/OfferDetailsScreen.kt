@@ -36,12 +36,17 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.customcolor.components.DisplayHTMLText
 import com.example.customcolor.components.ExpandableContent
+import com.example.customcolor.components.getColorFor
 import com.example.customcolor.screens.model.Offer
 import com.example.customcolor.screens.model.offerList
 import com.example.customcolor.ui.theme.AppTheme
 
 @Composable
-fun OfferDetailsScreen(offer: Offer, navigateToHome: () -> Unit) {
+fun OfferDetailsScreen(
+    colorIndex: Int,
+    offer: Offer,
+    navigateToHome: () -> Unit
+) {
     Surface {
         Column(
             Modifier
@@ -71,7 +76,7 @@ fun OfferDetailsScreen(offer: Offer, navigateToHome: () -> Unit) {
                     modifier = Modifier
                         .padding(vertical = 12.dp)
                         .clip(MaterialTheme.shapes.large)
-                        .background(MaterialTheme.colors.primaryVariant.copy(alpha = 0.3F))
+                        .background(getColorFor(index = colorIndex).copy(alpha = 0.3F))
                         .padding(horizontal = 8.dp, vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -161,11 +166,15 @@ fun OfferDetailsScreen(offer: Offer, navigateToHome: () -> Unit) {
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Button(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),onClick = { /*TODO*/ }) {
+            Button(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp), onClick = { /*TODO*/ }) {
                 Text(text = "Accept")
             }
 
-            TextButton(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),onClick = { /*TODO*/ }) {
+            TextButton(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp), onClick = { /*TODO*/ }) {
                 Text(text = "Decline")
             }
 
@@ -180,6 +189,10 @@ fun OfferDetailsScreen(offer: Offer, navigateToHome: () -> Unit) {
 @Composable
 private fun PreviewOfferDetails() {
     AppTheme {
-        OfferDetailsScreen(offerList.first(),{})
+        OfferDetailsScreen(
+            colorIndex = 0,
+            offer = offerList.first(),
+            navigateToHome = {}
+        )
     }
 }
